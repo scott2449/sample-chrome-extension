@@ -1,0 +1,37 @@
+<!-- this html is what is displayed in the content of this extension's popup -->
+<style>
+
+a {color:#FFFFFF;}
+
+body {
+  background:black;
+  min-width:200px;
+  overflow-x:hidden;
+}
+
+img {
+  margin:0px 2px;
+  width:16px;
+  height:16px;
+}
+</style>
+
+<script>
+window.onload=function(){
+	showPage(localStorage.getItem("sample"));
+};
+function showPage(page) {
+	var link = document.createElement("a");
+	link.href = page;
+	link.innerText=page;
+    link.onclick = launch;
+	document.body.appendChild(link);
+}
+function launch(){
+	var link = this.href;
+	chrome.tabs.getSelected(null,function(tab) {
+	  chrome.tabs.update(tab.id, {url: link});
+	});
+	return false;
+}
+</script>
